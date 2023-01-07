@@ -5,7 +5,7 @@ import re
 Реализован оконный интерфейс.
 
 пример входного файла input.txt
-Скопировать с 11 по 16 строчку включительно, работает долго.
+Скопировать с 10 по 15 строчку включительно, работает долго.
 
 files/add_constant.py plagiat1/add_constant.py
 files/apply_lambda.py plagiat1/apply_lambda.py
