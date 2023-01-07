@@ -164,6 +164,13 @@ def get_text():
     tk.Label(root, text='результаты').grid(row=1, column=0)
     for i in range(len(scores)):
         tk.Label(root2, text=f'{i+1} пара ' + ' Результат:  ' + str(scores[i])).grid(row=2+i, column=0)
+    
+    output = 'scores.txt'
+    with open(output, 'w', encoding='utf8') as outf:
+        for score in scores:
+            outf.write(score)
+            outf.write('\n')
+    
     root2.mainloop()
     return 0
 
