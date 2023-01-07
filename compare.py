@@ -18,7 +18,7 @@ files/generator.py plagiat1/generator.py
 
 """
 
-
+# функция, определяющее расттояние Левенштейна для двух строк
 def levenstein(str_1, str_2):
     n, m = len(str_1), len(str_2)
     if n > m:
@@ -36,6 +36,7 @@ def levenstein(str_1, str_2):
 
     return current_row[n]
 
+# функция убирающая пропуски в коде
 
 def spaces(string):
     string = str(string)
@@ -47,7 +48,7 @@ def spaces(string):
 
     return text
 
-
+# функция убирающая комментарии в коде
 def comments(string):
     string = str(string)
 
@@ -59,6 +60,7 @@ def comments(string):
     else:
         return string
 
+# функция убирающая многострочные комментарии в коде
 
 def many_string_comm(text):
     text = str(text)
@@ -82,6 +84,7 @@ def many_string_comm2(text):
 
     return text
 
+# функция убирающая комментарии в коде комбинированная
 
 def clear_com(text):
     new_text = text
@@ -95,6 +98,8 @@ def clear_com(text):
 
     return new_text2
 
+# функция переводящая код в текст
+
 
 def transform_into_string(file):
     text = ''
@@ -103,6 +108,8 @@ def transform_into_string(file):
             text += comments(line)
 
     return text
+
+# функция убирающая частые слова + использование регулярок
 
 
 def replaces(text):
@@ -130,6 +137,8 @@ def replaces(text):
 
     return text
 
+# функция обрабатывающая два файла
+
 
 def compare(input1):
     input1 = str(input1)
@@ -141,11 +150,11 @@ def compare(input1):
 
     score = 1 - levenstein(transformfile1, transformfile2) / max(len(transformfile1), len(transformfile2))
 
-    scores += [str(round(score, 2))]
+    scores += [str(round(score, 2))] # получение score
 
     return scores
 
-
+#обратная связь оконного интерфейса
 
 def get_text():
     test = input1.get()
@@ -174,6 +183,7 @@ def get_text():
     root2.mainloop()
     return 0
 
+# Реализация окнного интерфейса
 
 root = tk.Tk()
 root.title('Сравнение на плагиат кодов Python')
