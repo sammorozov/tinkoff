@@ -1,24 +1,11 @@
 import tkinter as tk
 import re
 
-"""
-Реализован оконный интерфейс.
 
-пример входного файла input.txt
-Скопировать с 10 по 15 строчку включительно, работает долго.
-
-files/add_constant.py plagiat1/add_constant.py
-files/apply_lambda.py plagiat1/apply_lambda.py
-files/test_auto.py plagiat1/test_auto.py
-files/forward.py plagiat1/forward.py
-files/fourier.py plagiat1/fourier.py
-files/generator.py plagiat1/generator.py
-
-
-
-"""
 
 # функция, определяющее расттояние Левенштейна для двух строк
+
+
 def levenstein(str_1, str_2):
     n, m = len(str_1), len(str_2)
     if n > m:
@@ -36,6 +23,7 @@ def levenstein(str_1, str_2):
 
     return current_row[n]
 
+
 # функция убирающая пропуски в коде
 
 def spaces(string):
@@ -48,6 +36,7 @@ def spaces(string):
 
     return text
 
+
 # функция убирающая комментарии в коде
 def comments(string):
     string = str(string)
@@ -59,6 +48,7 @@ def comments(string):
         return string[:string.find('#')]
     else:
         return string
+
 
 # функция убирающая многострочные комментарии в коде
 
@@ -84,6 +74,7 @@ def many_string_comm2(text):
 
     return text
 
+
 # функция убирающая комментарии в коде комбинированная
 
 def clear_com(text):
@@ -98,6 +89,7 @@ def clear_com(text):
 
     return new_text2
 
+
 # функция переводящая код в текст
 
 
@@ -108,6 +100,7 @@ def transform_into_string(file):
             text += comments(line)
 
     return text
+
 
 # функция убирающая частые слова + использование регулярок
 
@@ -137,6 +130,7 @@ def replaces(text):
 
     return text
 
+
 # функция обрабатывающая два файла
 
 
@@ -150,38 +144,43 @@ def compare(input1):
 
     score = 1 - levenstein(transformfile1, transformfile2) / max(len(transformfile1), len(transformfile2))
 
-    scores += [str(round(score, 2))] # получение score
+    scores += [str(round(score, 5))]  # получение score
 
     return scores
 
-#обратная связь оконного интерфейса
 
+# обратная связь оконного интерфейса
+# на вход два файла input.txt и scores.txt
 def get_text():
     test = input1.get()
     test = str(test)
-
-    data = test.split('\n')
     scores = []
-    print(data)
-    for d in data:
-        scores += compare(d)
 
-    print(scores)
+    finput = test.split()[0]
+
+    with open(finput, 'r', encoding='utf8') as ff:
+        for line in ff:
+            scores += compare(line)
+
+    #print(scores)
     root2 = tk.Tk()
     root2.title('Сравнение на плагиат кодов Python')
     root2.geometry("400x400")
     tk.Label(root, text='результаты').grid(row=1, column=0)
+    k = 0
     for i in range(len(scores)):
-        tk.Label(root2, text=f'{i+1} пара ' + ' Результат:  ' + str(scores[i])).grid(row=2+i, column=0)
-    
+        tk.Label(root2, text=f'{i + 1} пара ' + ' Результат:  ' + str(scores[i])).grid(row=2 + i, column=0)
+        k = i
+    tk.Label(root2, text='результаты сохранены в scores.txt').grid(row=3 + k, column=0)
     output = 'scores.txt'
     with open(output, 'w', encoding='utf8') as outf:
         for score in scores:
             outf.write(score)
             outf.write('\n')
-    
+
     root2.mainloop()
     return 0
+
 
 # Реализация окнного интерфейса
 
@@ -196,6 +195,4 @@ input1 = tk.Entry()
 input1.grid(row=1, column=1)
 tk.Button(root, text='Check', command=get_text).grid(row=2, column=0)
 
-
 root.mainloop()
-
