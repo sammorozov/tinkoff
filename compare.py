@@ -66,6 +66,7 @@ def many_string_comm(text):
 
 def many_string_comm2(text):
     text = str(text)
+    
     a = text.find("'''")
     old_text = text[:a]
     new_text = text[a + 3:]
