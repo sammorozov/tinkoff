@@ -2,7 +2,6 @@ import tkinter as tk
 import re
 
 
-
 # функция, определяющее расттояние Левенштейна для двух строк
 
 
@@ -38,6 +37,7 @@ def spaces(string):
 
 
 # функция убирающая комментарии в коде
+
 def comments(string):
     string = str(string)
 
@@ -157,12 +157,13 @@ def get_text():
     scores = []
 
     finput = test.split()[0]
+    fotput = test.split()[1]
 
     with open(finput, 'r', encoding='utf8') as ff:
         for line in ff:
             scores += compare(line)
 
-    #print(scores)
+    print(scores)
     root2 = tk.Tk()
     root2.title('Сравнение на плагиат кодов Python')
     root2.geometry("400x400")
@@ -171,8 +172,8 @@ def get_text():
     for i in range(len(scores)):
         tk.Label(root2, text=f'{i + 1} пара ' + ' Результат:  ' + str(scores[i])).grid(row=2 + i, column=0)
         k = i
-    tk.Label(root2, text='результаты сохранены в scores.txt').grid(row=3 + k, column=0)
-    output = 'scores.txt'
+    tk.Label(root2, text='результаты сохранены в' + str(fotput)).grid(row=3 + k, column=0)
+    output = fotput
     with open(output, 'w', encoding='utf8') as outf:
         for score in scores:
             outf.write(score)
